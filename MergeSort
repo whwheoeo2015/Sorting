@@ -1,0 +1,56 @@
+public class MergrSort {
+    public static void main(String[] args) {
+        int[] arr = new int[] {4,0,3,2,1,7,8,9,10,12,13,18,21,20};
+        
+        mergeSort(arr);
+        
+        for(int i = 0; i<arr.length; i++){
+            System.out.println(arr[i]);
+        }
+    }
+    
+    private static void merge(int[] arr, int[] tempArr, int left, int mid, int right){
+        int p1= left;
+        int p2 = mid+1;
+        int pM = left;
+        
+        for(int i = left; i<=right; i++){
+            tempArr[i] = arr[i];
+        }
+        
+        while(p1 <= mid && p2 <= right){
+            if(tempArr[p1] < tempArr[p2]){
+                arr[pM++] = tempArr[p1++];
+            } else {
+                arr[pM++] = tempArr[p2++];
+            }
+        }
+        
+        while(p1 <= mid){
+            arr[pM++] = tempArr[p1++];
+        }
+        
+        while(p2 <= right){
+            arr[pM++] = tempArr[p2++];
+        }
+    }
+    
+    public static void mergeSort(int[] arr){
+        int size = arr.length;
+        int[] tempArr = new int[size];
+        divide(arr, tempArr, 0, size-1);
+    }
+    
+    private static void divide(int[] arr, int[] tempArr, int left, int right){
+        int mid;
+        
+        if(left<right){
+            mid = (left+right)/2;
+            divide(arr, tempArr, left, mid);
+            divide(arr, tempArr, mid+1, right);
+            
+            merge(arr, tempArr, left, mid, right);
+        }
+    }
+    
+}
